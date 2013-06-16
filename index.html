@@ -7,6 +7,36 @@
 <meta name="keywords" content="">
 <meta name="description" content="">
 <link href="css/main.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+
+	$("#video").jPlayer({
+		ready: function () {
+			$(this).jPlayer("setMedia", {
+				m4v: "http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v",
+				ogv: "http://www.jplayer.org/video/ogv/Big_Buck_Bunny_Trailer.ogv",
+				webmv: "http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm",
+				poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"
+			}).jPlayer("play");
+		},
+		swfPath: "js",
+		supplied: "webmv, ogv, m4v",
+		volume: 0.3,
+		size: {
+			width: "100%",
+			height: "auto",
+			cssClass: "jp-video-360p"
+		},
+		smoothPlayBar: true,
+		keyEnabled: true
+	});
+
+});
+//]]>
+</script>
 </head>
 <body>
 <div class="header clear"><a href="#"><img class="logo" src="images/logo.png" width="560" height="91" alt=""></a>
@@ -33,7 +63,61 @@
       </ul>
     </li>
   </ul>
-  <span class="mute mute_off">&nbsp;</span> </div>
-<div class="mov_cnt"><img src="images/other/mov1.png" width="1680" height="926" alt=""></div>
+  <a href="javascript:;" class="mute jp-mute" tabindex="1" title="mute">mute</a>
+  <a href="javascript:;" class="mute mute_off jp-unmute" tabindex="1" title="unmute" style="display: none;">unmute</a>
+  <span class="mute" style="display: none;">&nbsp;</span> 
+  <span class="mute mute_off" style="display: none;">&nbsp;</span> 
+</div>
+<div class="mov_cnt">
+		<div id="jp_container_1" class="jp-video jp-video-360p">
+			<div class="jp-type-single">
+				<div id="video" class="jp-jplayer"></div>
+				<div class="jp-gui">
+					<div class="jp-video-play">
+						<a href="javascript:;" class="jp-video-play-icon" tabindex="1">play</a>
+					</div>
+					<div class="jp-interface">
+						<div class="jp-progress">
+							<div class="jp-seek-bar">
+								<div class="jp-play-bar"></div>
+							</div>
+						</div>
+						<div class="jp-current-time" style="display: none;"></div>
+						<div class="jp-duration" style="display: none;"></div>
+						<div class="jp-controls-holder">
+							<ul class="jp-controls">
+								<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+								<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+								<li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+								<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+								<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+								<li style="display: none;"><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+							</ul>
+							<div class="jp-volume-bar">
+								<div class="jp-volume-bar-value"></div>
+							</div>
+							<ul class="jp-toggles" style="display: none;">
+								<li><a href="javascript:;" class="jp-full-screen" tabindex="1" title="full screen">full screen</a></li>
+								<li><a href="javascript:;" class="jp-restore-screen" tabindex="1" title="restore screen">restore screen</a></li>
+								<li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
+								<li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
+							</ul>
+						</div>
+						<div class="jp-title" style="display: none;">
+							<ul>
+								<li>Big Buck Bunny Trailer</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="jp-no-solution">
+					<span>Update Required</span>
+					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+				</div>
+			</div>
+		</div>
+
+<img src="images/other/mov1.png" width="1680" height="926" alt="" style="display: none;">
+</div>
 </body>
 </html>
