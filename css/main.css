@@ -65,7 +65,8 @@ table
 {
 	background: none !important;
 }
-.brd_none
+.brd_none,
+.brd_none li
 {
 	border: none !important;
 }
@@ -82,6 +83,14 @@ table
          url('fonts/bebasneue-webfont-webfont.svg#bebas_neueregular') format('svg');
     font-weight: normal;
     font-style: normal;
+}
+input,
+select,
+textarea
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height: 14px;
 }
 /*--IE css3--*/
 .wave_price
@@ -257,7 +266,10 @@ li.fl_left_act
 .hist_img img
 {
 	width: 100%;
+	/*
 	height: 100%;
+	*/
+	height: auto;
 	float: left;   	
 }
 li.fl_left_act .hist_img
@@ -293,6 +305,12 @@ li.fl_left_act .hist_img
 	display: block;
 	margin: 2px 0 26px;
 }
+/*.hist_img_L
+{
+	max-width: 100%;
+	min-width: 100%;
+	height: 100%;
+}*/
 /*----*/
 .colct_slider
 {
@@ -449,5 +467,212 @@ li.cl_curr
 	width: 8px;
 	height: 8px;
 	margin: -2px 3px -2px 2px;
+	cursor: default;
+}
+/*--Form css--*/
+.form_wrap
+{
+	float: right;
+	width: 226px;
+	padding: 0 17px;
+	background: url(../images/bg_form.png) repeat-y right top;
+	margin-right: 15px;
+	position: relative;
+	font-size: 11px;
+	line-height: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.scroll_pt
+{
+	background: #FFF;
+	position: absolute;
+	top: 0;
+	right: -3px;
+	width: 9px;
+	height: 10%;
+	cursor: pointer;
+}
+.form_headl
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom: 8px;
+}
+.form_inp_list
+{
+	border-bottom: 1px solid #696969;
+	margin-bottom: 7px;
+}
+.form_inp_list *
+{
+	float: left;
+}
+.form_inp_list li
+{
+	width: 100%;
+	padding: 0 0 4px;
+}
+.form_inp_list li:last-child
+{
+	border-bottom: 1px solid #595959;
+}
+.form_inp_list em
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height: 15px;
+	font-weight: bold;
+	font-style: normal;
+	display: block;
+	clear: both;
+	margin: 4px 0 -3px;
+	text-transform: uppercase;
+}
+.inp_comm
+{
+	color: #000;
+	background: #BABCBE;
+	border: 1px solid #5A5A5C;
+	-moz-box-shadow: inset 0 0 1px 1px #C9CBCD;
+	-webkit-box-shadow: inset 0 0 1px 1px #C9CBCD;
+	box-shadow: inset 0 0 1px 1px #C9CBCD;
+	height: 14px;
+	padding: 2px 2px 1px;
+	width: 220px;
+}
+.inp_date .inp_comm
+{
+	width: 194px;
+}
+input.ic_sml
+{
+	width: 106px;
+}
+.date_pt
+{
+	background: url(../images/calend.png);
+	width: 26px;
+	height: 19px;
+	float: left;
+}
+.scl_wrap
+{
+	/*background: #EFEFEF;*/
+	background: #FFF url(../images/arrw_select.png) no-repeat right 2px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: inset 0 0 1px 1px #FFF;
+	-webkit-box-shadow: inset 0 0 1px 1px #FFF;
+	box-shadow: inset 0 0 1px 1px #FFF;
+	width: 226px;
+	overflow: hidden;
+	padding: 2px 0;
+	margin: 2px 0;
+}
+.scl_wrap select
+{
+	color: #999;
+	background: none transparent;
+    border: none;
+	width: 246px;
+	height: 16px;
+}
+.fil_half
+{
+	width: 111px;
+}
+.fil_half .scl_wrap,
+.fil_half div
+{
+	width: 111px;
+	margin: 4px 0 2px;
+}
+.fil_half .scl_wrap select
+{
+	width: 132px;
+}
+.form_inp_list label
+{
+	font-size: 11px;
+	line-height: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-left: 7px;
+}
+.form_num
+{
+	border: 1px solid #5A5A5C;
+	-moz-box-shadow: inset 0 0 1px 1px #C9CBCD;
+	-webkit-box-shadow: inset 0 0 1px 1px #C9CBCD;
+	box-shadow: inset 0 0 1px 1px #C9CBCD;
+	text-align: center;
+	padding: 3px 10px;
+	margin: 14px 0 10px;
+}
+.form_cmnt
+{
+	margin: 10px 0;
+}
+.form_cmnt textarea
+{
+	padding: 2px 0 0 2px;
+	width: 222px;
+	height: 100px;
+	background: #FFF;
+	color: #000;
+	float: left;
+	border: 1px solid #5A5A5C;
+	-moz-box-shadow: inset 0 0 1px 1px #C9CBCD;
+	-webkit-box-shadow: inset 0 0 1px 1px #C9CBCD;
+	box-shadow: inset 0 0 1px 1px #C9CBCD;
+}
+.form_err,
+.form_suc
+{
+	font-size: 12px;
+	line-height: 13px;
+	text-transform: uppercase;
+	padding-bottom: 14px;
+	margin: 12px 0;
+}
+.form_err
+{
+	color: #F00;
+	border-bottom: 3px solid #FF1A00;
+}
+.form_suc
+{
+	color: #B4FF00;
+	border-bottom: 3px solid #ACFF0D;
+}
+.btn_send
+{
+	width: 100%;
+	height: 100px;
+	font-size: 16px;
+	line-height: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFF;
+	border: 1px solid transparent;
+	border-bottom: 1px solid #202020;
+	background: #676767 url(../images/btn_send_bg.png) repeat-x left bottom;
+	cursor: pointer;
+	text-transform: uppercase;
+	margin: 4px 0 10px;
+}
+.btn_err
+{
+	border: 1px solid #FF1A00;
+	background: #252525;
+	color: #454545;
+	cursor: default;
+}
+.btn_suc
+{
+	border: 1px solid #ACFF0D;
+	background: #000;
 	cursor: default;
 }
