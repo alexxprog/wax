@@ -7,6 +7,10 @@
 <meta name="keywords" content="">
 <meta name="description" content="">
 <link href="css/main.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<!-- script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script -->
+<script type="text/javascript" src="js/scrollable.js"></script>
+<script type="text/javascript" src="js/collection.js"></script>
 </head>
 <body>
 <div class="header clear"><a href="#"><img class="logo" src="images/logo.png" width="560" height="91" alt=""></a>
@@ -35,74 +39,128 @@
   </ul>
   <span class="mute">&nbsp;</span> </div>
 <div class="colct_slider"><span class="slide_l">&nbsp;</span><span class="slide_r">&nbsp;</span>
-  <ul class="cl_num clear">
+  <ul class="cl_num navi clear"></ul>
+<!-- 
+  <div class="cl_num navi clear"></div>
+  <ul class="cl_num navi clear">
+    <li class="active cl_curr">&nbsp;</li>
     <li>&nbsp;</li>
-    <li class="cl_curr">&nbsp;</li>
+    <li>&nbsp;</li>
+    <li>&nbsp;</li>
+    <li>&nbsp;</li>
     <li>&nbsp;</li>
     <li>&nbsp;</li>
   </ul>
-  <ul class="colct_list clear" style="width: 100000px; position: relative; left: -33%;">
-    <li>
-      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
-      <div class="cl_dtl">
-        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
-          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
-          <div class="cl_code">CODE: CCG</div>
-          <ul class="cl_nav_list">
-            <li><a class="icon_share" href="#">SHARE</a></li>
-            <li><a class="icon_send" href="#">SEND</a></li>
-            <li><a class="icon_print" href="#">PRINT</a></li>
-            <li><a class="icon_rent" href="#">RENT</a></li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
-      <div class="cl_dtl">
-        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
-          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
-          <div class="cl_code">CODE: CCG</div>
-          <ul class="cl_nav_list">
-            <li><a class="icon_share" href="#">SHARE</a></li>
-            <li><a class="icon_send" href="#">SEND</a></li>
-            <li><a class="icon_print" href="#">PRINT</a></li>
-            <li><a class="icon_rent" href="#">RENT</a></li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
-      <div class="cl_dtl">
-        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
-          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
-          <div class="cl_code">CODE: CCG</div>
-          <ul class="cl_nav_list">
-            <li><a class="icon_share" href="#">SHARE</a></li>
-            <li><a class="icon_send" href="#">SEND</a></li>
-            <li><a class="icon_print" href="#">PRINT</a></li>
-            <li><a class="icon_rent" href="#">RENT</a></li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
-      <div class="cl_dtl">
-        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
-          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
-          <div class="cl_code">CODE: CCG</div>
-          <ul class="cl_nav_list">
-            <li><a class="icon_share" href="#">SHARE</a></li>
-            <li><a class="icon_send" href="#">SEND</a></li>
-            <li><a class="icon_print" href="#">PRINT</a></li>
-            <li><a class="icon_rent" href="#">RENT</a></li>
-          </ul>
-        </div>
-      </div>
-    </li>
-  </ul>
+ -->
+  <div id="slider">
+	  <ul class="colct_list items clear" style="width: 100000px; position: relative;">
+	    <li class="item">
+	      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
+	      <div class="cl_dtl">
+	        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
+	          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
+	          <div class="cl_code">CODE: CCG</div>
+	          <ul class="cl_nav_list">
+	            <li><a class="icon_share" href="#">SHARE</a></li>
+	            <li><a class="icon_send" href="#">SEND</a></li>
+	            <li><a class="icon_print" href="#">PRINT</a></li>
+	            <li><a class="icon_rent" href="#">RENT</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </li>
+	    <li class="item">
+	      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
+	      <div class="cl_dtl">
+	        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
+	          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
+	          <div class="cl_code">CODE: CCG</div>
+	          <ul class="cl_nav_list">
+	            <li><a class="icon_share" href="#">SHARE</a></li>
+	            <li><a class="icon_send" href="#">SEND</a></li>
+	            <li><a class="icon_print" href="#">PRINT</a></li>
+	            <li><a class="icon_rent" href="#">RENT</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </li>
+	    <li class="item">
+	      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
+	      <div class="cl_dtl">
+	        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
+	          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
+	          <div class="cl_code">CODE: CCG</div>
+	          <ul class="cl_nav_list">
+	            <li><a class="icon_share" href="#">SHARE</a></li>
+	            <li><a class="icon_send" href="#">SEND</a></li>
+	            <li><a class="icon_print" href="#">PRINT</a></li>
+	            <li><a class="icon_rent" href="#">RENT</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </li>
+	    <li class="item">
+	      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
+	      <div class="cl_dtl">
+	        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
+	          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
+	          <div class="cl_code">CODE: CCG</div>
+	          <ul class="cl_nav_list">
+	            <li><a class="icon_share" href="#">SHARE</a></li>
+	            <li><a class="icon_send" href="#">SEND</a></li>
+	            <li><a class="icon_print" href="#">PRINT</a></li>
+	            <li><a class="icon_rent" href="#">RENT</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </li>
+	    <li class="item">
+	      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
+	      <div class="cl_dtl">
+	        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
+	          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
+	          <div class="cl_code">CODE: CCG</div>
+	          <ul class="cl_nav_list">
+	            <li><a class="icon_share" href="#">SHARE</a></li>
+	            <li><a class="icon_send" href="#">SEND</a></li>
+	            <li><a class="icon_print" href="#">PRINT</a></li>
+	            <li><a class="icon_rent" href="#">RENT</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </li>
+	    <li class="item">
+	      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
+	      <div class="cl_dtl">
+	        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
+	          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
+	          <div class="cl_code">CODE: CCG</div>
+	          <ul class="cl_nav_list">
+	            <li><a class="icon_share" href="#">SHARE</a></li>
+	            <li><a class="icon_send" href="#">SEND</a></li>
+	            <li><a class="icon_print" href="#">PRINT</a></li>
+	            <li><a class="icon_rent" href="#">RENT</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </li>
+	    <li class="item">
+	      <div class="cl_img"><img src="images/other/frak.png" width="594" height="925" alt=""></div>
+	      <div class="cl_dtl">
+	        <div class="cl_dtl_in"><span class="cl_dtl_close">&nbsp;</span><strong class="cl_name">Jaquette de type Oxford par Chaps Ralph Lauren.</strong>
+	          <p>La jacquette classique de couleur anthracite est une veste à fentes plus longue à l’arrière, portée en général sur un pantalon à rayures et une chemise blanche à col cassé. La finition de l’ensemble se fait d’un Ascot, de bretelles blanches et d’un gilet gris perle. Les gants gris, les guêtres et le haut-de-forme sont optionnels.</p>
+	          <div class="cl_code">CODE: CCG</div>
+	          <ul class="cl_nav_list">
+	            <li><a class="icon_share" href="#">SHARE</a></li>
+	            <li><a class="icon_send" href="#">SEND</a></li>
+	            <li><a class="icon_print" href="#">PRINT</a></li>
+	            <li><a class="icon_rent" href="#">RENT</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </li>
+	  </ul>
+  </div>
 </div>
 </body>
 </html>
