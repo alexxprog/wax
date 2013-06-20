@@ -60,7 +60,7 @@ jQuery(function($) {
 		$(".hist_list").on("click", "li:not(.fl_left_act)", function(){
 			var clickedIndex = $(this).index();
 			var openedIndex = $(".fl_left_act").index();
-console.log('clicked: '+clickedIndex+' opened: '+openedIndex);			
+//console.log('clicked: '+clickedIndex+' opened: '+openedIndex);			
 			$(".fl_left_act .hist_img img").css({"height": "auto"});
 			
 			$(".fl_left_act .item_dtl").fadeOut(function(){
@@ -87,7 +87,6 @@ console.log('clicked: '+clickedIndex+' opened: '+openedIndex);
 							var interval = setInterval(function(){
 								if(n <= clickedIndex) clearInterval(interval);
 								else{
-									console.log(n);
 									moveItem(n, "right");
 									n --;
 								}
