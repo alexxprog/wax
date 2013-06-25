@@ -25,10 +25,10 @@ jQuery(function($) {
 			
 			//Animation for first five slides
 			var slides = $(".colct_list .item").length;
-			console.log("slides: "+slides);
+			//console.log("slides: "+slides);
 			var index = 0;
 			var startSlidesAnimation = setInterval(function(){
-				console.log("index: "+index);
+				//console.log("index: "+index);
 				if(index < slides && index < 5){
 					$(".colct_list .item").eq(index).animate({
 						left: 0
@@ -40,13 +40,13 @@ jQuery(function($) {
 			
 			//Put in correct position the rest of the slides and initialize the slider 
 			setTimeout(function(){
-				console.log(index);
+				//console.log(index);
 				$(".colct_list .item").css({
 					"left": 0
 				}); 
-				console.log("scrollable");
+				//console.log("scrollable");
 				var coll_slider = $('#slider').scrollable({
-					circular: true, 
+					circular: false, 
 					autopause: true, 
 					next: ".slide_r", 
 					prev: ".slide_l", 
@@ -55,7 +55,7 @@ jQuery(function($) {
 					navi: ".cl_num",
 					activeClass: "cl_curr",
 					naviItem: "li"
-				});
+				}).activator();
 				//Get slider api
 				scrollableApi = coll_slider.data("scrollable");
 			}, 5*570);

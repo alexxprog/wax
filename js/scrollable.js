@@ -31,6 +31,7 @@
 			prev: '.prev', 
 			size: 1,
 			speed: 400,
+			width: 628,
 			vertical: false,
 			touch: true,
 			wheelSpeed: 0
@@ -64,6 +65,7 @@
 				
 		if (!current) { current = self; } 
 		if (itemWrap.length > 1) { itemWrap = $(conf.items, root); }
+		//conf.width = current.width();
 		
 		
 		// in this version circular not supported when size > 1
@@ -99,7 +101,11 @@
 			getItems: function() {
 				return itemWrap.find(conf.item).not("." + conf.clonedClass);	
 			},
-							
+
+            getAllItems: function() {
+				return itemWrap.find(conf.item);
+			},
+
 			move: function(offset, time) {
 				return self.seekTo(index + offset, time);
 			},
@@ -117,7 +123,7 @@
 			},
 			
 			end: function(time) {
-				return self.seekTo(self.getSize() -1, time);	
+				return self.seekTo(self.getSize() -2, time);	
 			},	
 			
 			focus: function() {
@@ -141,10 +147,72 @@
 				return self;
 			},
 			
+			closeItem: function(){
+				//console.log(conf.items+" .selected");
+				if($(".opened")){
+					var wOpn = $(".opened .cl_img").width();
+					$(".opened").find(".cl_dtl").fadeOut("fast", function(){
+						$(".opened").animate({
+							width: wOpn
+						}, 500, function(){
+							//self.seekToCenter($(".opened").index());
+							$(this).removeClass("opened");
+						});
+						itemWrap.removeClass("selected");
+					})
+				}
+			},
+			
+			openItem: function(i, timeout){
+				// ensure numeric index
+				if (!i.jquery) { i *= 1; }
+				
+				if(!timeout) timeout = 500;
+				
+				// avoid seeking from end clone to the beginning
+				if (conf.circular && i === 0 && index == -1 && time !== 0) { return self; }
+				
+				// check that index is sane				
+				if (!conf.circular && i < 0 || i > self.getSize() || i < -1) { return self; }
+				
+				/*
+				 * */
+				var item = i;
+				
+				if (i.jquery) {
+					i = self.getItems().index(i);	
+					
+				} else {
+					item = self.getItems().eq(i);
+				}
+				
+				if(item.hasClass("opened")) return;
+				
+				itemWrap.addClass("selected");
+				var wAct = item.innerWidth();
+				setTimeout(function(){
+					item.css({"max-width": wAct*2+"px"}).find(".cl_img").width(wAct);
+					item.animate({
+						width: wAct*2
+					}, 500);
+					
+					var offset = -item.position().left;
+					var dif = self.getRoot().width() - wAct*2;
+					if(dif){
+						offset += dif/2;
+					}
+					//console.log("left: "+$(this).position().left+"  width: "+wAct*2);
+					itemWrap.animate({
+						left: offset
+					}, 500, function(){
+						item.find(".cl_dtl").width(wAct).fadeIn();
+						item.addClass("opened");
+					});
+				}, timeout);
+			},
 			
 			/* all seeking functions depend on this */		
-			seekTo: function(i, time, fn) {	
-				
+			seekTo: function(i, time, fn) {
 				// ensure numeric index
 				if (!i.jquery) { i *= 1; }
 				
@@ -162,12 +230,22 @@
 				} else {
 					item = self.getItems().eq(i);
 				}  
-				
+/* ======================================= */				
+				//console.dir(self.getAllItems());
+				self.getAllItems().each(function(){
+					$(this).removeClass('active');
+				});
+                item.addClass('active');
+                self.getAllItems().removeClass("selected");
+/* ======================================= */				
+                
 				// onBeforeSeek
 				var e = $.Event("onBeforeSeek"); 
 				if (!fn) {
-					fire.trigger(e, [i, time]);				
-					if (e.isDefaultPrevented() || !item.length) { return self; }			
+					setTimeout(function(){
+						fire.trigger(e, [i, time]);				
+						if (e.isDefaultPrevented() || !item.length) { return self; }			
+					}, 500);
 				}  
 	
 				var props = vertical ? {top: -item.position().top} : {left: -item.position().left};  
@@ -178,6 +256,65 @@
 				
 				itemWrap.animate(props, time, conf.easing, fn || function() { 
 					fire.trigger("onSeek", [i]);		
+				});	 
+				
+				return self; 
+			},
+			
+			/* all seeking functions depend on this */		
+			seekToCenter: function(i, time, fn) {
+				
+				// ensure numeric index
+				if (!i.jquery) { i *= 1; }
+				
+				// avoid seeking from end clone to the beginning
+				if (conf.circular && i === 0 && index == -1 && time !== 0) { return self; }
+				
+				// check that index is sane				
+				if (!conf.circular && i < 0 || i > self.getSize() || i < -1) { return self; }
+				
+				var item = i;
+				
+				if (i.jquery) {
+					i = self.getItems().index(i);	
+					
+				} else {
+					item = self.getItems().eq(i);
+				}  
+				/* ======================================= */				
+				self.getAllItems().each(function(){
+					$(this).removeClass('active');
+				});
+				item.addClass('active');
+				/* ======================================= */				
+				
+				// onBeforeSeek
+				var e = $.Event("onBeforeSeek"); 
+				if (!fn) {
+					setTimeout(function(){
+						fire.trigger(e, [i, time]);				
+						if (e.isDefaultPrevented() || !item.length) { return self; }			
+					}, 500);
+				}  
+				
+                if(vertical){
+                    props = {top: -item.position().top};
+               }else{
+                   //console.log(item)
+                   var offset = -item.position().left;
+                   var dif = self.getRoot().width() - item.width();
+                   if(dif){
+                       offset += dif/2;
+                   }
+                   props =  {left: offset};
+               }				
+				
+				index = i;
+				current = self;  
+				if (time === undefined) { time = conf.speed; }   
+				
+				itemWrap.animate(props, time, conf.easing, fn || function() { 
+					fire.trigger("onSeek", [i]);
 				});	 
 				
 				return self; 
@@ -366,6 +503,91 @@
 			
 	
 })(jQuery);
+
+
+/**
+ * @license 
+ * jQuery Tools @VERSION / Scrollable Activator
+ * 
+ * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
+ *
+ * http://alex-shilga.com
+ *
+ * Since: June 2013
+ * Date: @DATE 
+ */
+(function($) {	
+	var t = $.tools.scrollable; 
+	
+	t.activator = {
+		conf: {
+		}
+	};		
+	
+	$.fn.activator = function(conf) {
+		// configuration
+		if (typeof conf == 'string') { conf = {navi: conf}; } 
+		conf = $.extend({}, t.activator.conf, conf);
+		var api = $(this).data("scrollable");
+		this.each(function() {
+			
+			function doClick(el, i, e) {
+				api.seekToCenter(i).openItem(i, 1000);
+				/*
+				api.onSeek(function(e, index) {
+					api.openItem(index, 500);
+				}); 
+				 * */
+				e.preventDefault(); 
+			}
+			
+			/*
+			api.seekTo = function() {
+				console.log("seek");
+				return false;	
+			}; 
+			 * */
+			//var next = find(api.getRoot(), conf.next);
+			//console.dir(api.getRoot());
+			//console.dir(conf);
+			//console.dir(next);
+			//next.click(function(e) { console.log("seek"); });
+			
+			api.getAllItems().each(function(){
+				var i = $(this).index();
+				$(this).find(".cl_img").click(function(e){
+					doClick($(this), i, e);
+					e.preventDefault(); 
+				});
+			});
+
+		});
+		
+		$(".cl_dtl_close").click(function(e){
+			e.preventDefault();
+			var i = $(this).parents(".item").index();
+			api.closeItem();
+			api.seekToCenter(api.getItemWrap().find(".active"));
+		});
+		
+		
+		api.move = function(offset, time) {
+			api.closeItem();
+			setTimeout(function() {
+				return api.seekTo(api.getIndex() + offset, time);
+			}, 1000);
+		},
+			
+
+		api.onBeforeSeek(function(e, index) {
+		}); 
+		
+		return conf.api ? ret : this;
+	};
+
+})(jQuery);
+
+
 /**
  * @license 
  * jQuery Tools @VERSION / Scrollable Navigator
@@ -382,7 +604,6 @@
 	var t = $.tools.scrollable; 
 	
 	t.navigator = {
-		
 		conf: {
 			navi: '.navi',
 			naviItem: null,		

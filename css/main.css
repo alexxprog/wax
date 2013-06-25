@@ -340,10 +340,12 @@ li.fl_left_act .hist_img
 	background: url(../images/slide_r.png);
 	right: 0;
 }
+.slide_l.disabled,
+.slide_r.disabled{
+	display: none;
+}
 .colct_list
 {
-	/*
-	*/
 }
 .colct_list li
 {
@@ -352,6 +354,24 @@ li.fl_left_act .hist_img
 	width: 628px;
 	max-width: 628px;
 	min-width: 321px;
+	-webkit-transition: opacity 0.5s linear;
+	-moz-transition: opacity 0.5s linear;
+	-ms-transition: opacity 0.5s linear;
+	-o-transition: opacity 0.5s linear;
+	transition: opacity 0.5s linear;
+	
+}
+.colct_list.selected li{
+	filter: alpha(opacity=30);
+  	opacity: 0.3;
+}
+.colct_list.selected li.active{
+	filter: alpha(opacity=100);
+  	opacity: 1;
+}
+.colct_list li .cl_img{
+	max-width: 100%;
+	height: auto;
 }
 .cl_img img
 {
@@ -359,8 +379,8 @@ li.fl_left_act .hist_img
 	max-width: 100%;
 	height: auto;
 	float: left;
-	filter: alpha(opacity=30);
-  	opacity: 0.3;
+	/*
+	*/
   	cursor: pointer;
 }
 .cl_act .cl_img img
@@ -372,8 +392,9 @@ li.fl_left_act .hist_img
 .cl_dtl
 {
 	display: none;
-	float: left;
+	float: right;
 	width: 628px;
+	max-width: 628px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 18px;
