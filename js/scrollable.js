@@ -532,12 +532,10 @@
 		this.each(function() {
 			
 			function doClick(el, i, e) {
-				api.seekToCenter(i).openItem(i, 1000);
-				/*
-				api.onSeek(function(e, index) {
-					api.openItem(index, 500);
-				}); 
-				 * */
+				api.closeItem();
+				setTimeout(function() {
+					api.seekToCenter(i).openItem(i, 1000);
+				}, 1000);
 				e.preventDefault(); 
 			}
 			
@@ -572,10 +570,12 @@
 		
 		
 		api.move = function(offset, time) {
-			api.closeItem();
-			setTimeout(function() {
-				return api.seekTo(api.getIndex() + offset, time);
-			}, 1000);
+			if(api.getItemWrap().find(".opened").length){
+				api.closeItem();
+				setTimeout(function() {
+					return api.seekTo(api.getIndex() + offset, time);
+				}, 1000);
+			}else return api.seekTo(api.getIndex() + offset, time);
 		},
 			
 
