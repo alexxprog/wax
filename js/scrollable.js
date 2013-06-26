@@ -533,9 +533,11 @@
 			
 			function doClick(el, i, e) {
 				api.closeItem();
-				setTimeout(function() {
-					api.seekToCenter(i).openItem(i, 1000);
-				}, 1000);
+				if(!el.parent().hasClass("opened")){
+					setTimeout(function() {
+						api.seekToCenter(i).openItem(i, 1000);
+					}, 1000);
+				}
 				e.preventDefault(); 
 			}
 			
