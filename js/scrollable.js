@@ -155,7 +155,6 @@
 						$(".opened").animate({
 							width: wOpn
 						}, 500, function(){
-							//self.seekToCenter($(".opened").index());
 							$(this).removeClass("opened");
 						});
 						itemWrap.removeClass("selected");
@@ -263,7 +262,6 @@
 			
 			/* all seeking functions depend on this */		
 			seekToCenter: function(i, time, fn) {
-				
 				// ensure numeric index
 				if (!i.jquery) { i *= 1; }
 				
@@ -534,25 +532,15 @@
 			function doClick(el, i, e) {
 				api.closeItem();
 				if(!el.parent().hasClass("opened")){
+					var time = api.getItemWrap().find(".opened").length ?  1000 : 1;
 					setTimeout(function() {
 						api.seekToCenter(i).openItem(i, 1000);
-					}, 1000);
+					}, time);
 				}
 				e.preventDefault(); 
 			}
 			
-			/*
-			api.seekTo = function() {
-				console.log("seek");
-				return false;	
-			}; 
-			 * */
-			//var next = find(api.getRoot(), conf.next);
-			//console.dir(api.getRoot());
-			//console.dir(conf);
-			//console.dir(next);
-			//next.click(function(e) { console.log("seek"); });
-			
+			//bind click to slider items
 			api.getAllItems().each(function(){
 				var i = $(this).index();
 				$(this).find(".cl_img").click(function(e){
@@ -563,11 +551,14 @@
 
 		});
 		
+		//bind click to close buttons
 		$(".cl_dtl_close").click(function(e){
 			e.preventDefault();
 			var i = $(this).parents(".item").index();
 			api.closeItem();
-			api.seekToCenter(api.getItemWrap().find(".active"));
+			setTimeout(function() {
+				api.seekToCenter(i);
+			}, 1000);
 		});
 		
 		
@@ -578,11 +569,11 @@
 					return api.seekTo(api.getIndex() + offset, time);
 				}, 1000);
 			}else return api.seekTo(api.getIndex() + offset, time);
-		},
+		}
 			
 
-		api.onBeforeSeek(function(e, index) {
-		}); 
+		//api.onBeforeSeek(function(e, index) {
+		//}); 
 		
 		return conf.api ? ret : this;
 	};
