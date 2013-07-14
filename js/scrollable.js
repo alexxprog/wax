@@ -151,14 +151,18 @@
 				//console.log(conf.items+" .selected");
 				if($(".opened")){
 					var wOpn = $(".opened .cl_img").width();
+					$(".opened").find(".form_wrap:visible").fadeOut();
+					$(".slide_l:hidden, .slide_r:hidden").fadeIn();
+					$(".cl_num:hidden").fadeIn();
 					$(".opened").find(".cl_dtl").fadeOut("fast", function(){
 						$(".opened").animate({
 							width: wOpn
 						}, 500, function(){
 							$(this).removeClass("opened");
+							$(this).removeClass("rent");
 						});
 						itemWrap.removeClass("selected");
-					})
+					});
 				}
 			},
 			
@@ -663,7 +667,7 @@
 			function addItem(i) {  
 				
 				var item = $("<" + (conf.naviItem || 'a') + "/>").click(function(e)  {
-					doClick($(this), i, e);					
+					//doClick($(this), i, e);					
 				});
 				
 				// index number / id attribute
@@ -679,7 +683,9 @@
 			if (els().length) {
 				els().each(function(i) { 
 					$(this).click(function(e)  {
+						/*
 						doClick($(this), i, e);		
+						 * */
 					});
 				});
 				
