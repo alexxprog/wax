@@ -26,7 +26,7 @@
 			item: '> *',
 			items: '.items',
 			keyboard: true,
-			mousewheel: false,
+			mousewheel: false, // fun_do_som
 			next: '.next',   
 			prev: '.prev', 
 			size: 1,
@@ -54,7 +54,7 @@
 	var current;		
 	
 	// constructor
-	function Scrollable(root, conf) {   
+	function Scrollable(root, conf) {
 		
 		// current instance
 		var self = this, 
@@ -178,8 +178,6 @@
 				// check that index is sane				
 				if (!conf.circular && i < 0 || i > self.getSize() || i < -1) { return self; }
 				
-				/*
-				 * */
 				var item = i;
 				
 				if (i.jquery) {
@@ -216,6 +214,7 @@
 			
 			/* all seeking functions depend on this */		
 			seekTo: function(i, time, fn) {
+console.log("seekTo: "+i);				
 				// ensure numeric index
 				if (!i.jquery) { i *= 1; }
 				
@@ -233,10 +232,13 @@
 				} else {
 					item = self.getItems().eq(i);
 				}  
+				
+				if(item.length == 0) { return self; }
 /* ======================================= */				
-				//console.dir(self.getAllItems());
+				var itemsW = 0;
 				self.getAllItems().each(function(){
 					$(this).removeClass('active');
+					itemsW += $(this).outerWidth();
 				});
                 item.addClass('active');
                 self.getAllItems().removeClass("selected");
@@ -251,7 +253,41 @@
 					}, 500);
 				}  
 	
-				var props = vertical ? {top: -item.position().top} : {left: -item.position().left};  
+                if(vertical){
+                    var props = {top: -item.position().top};
+               }else{
+            	   if (!conf.circular){
+            		   var rootW = self.getRoot().width();
+            		   var shiftW = self.getItemWrap().position().left;
+            		   var restW = itemsW - Math.abs(shiftW) - rootW;
+            		   
+//console.log("itemsW: "+itemsW+" rootW: "+rootW+" shiftW: "+shiftW+" restW: "+restW+" props.left: "+item.position().left);
+
+            		   var offset = -item.position().left;
+            		   if(shiftW != 0){
+            			   var direction = 0;
+            			   if((shiftW-(-item.position().left)) < 0) direction = -1;
+            			   else direction = 1;
+            			   
+            			   if(direction > 0){
+            				   //console.log((-shiftW+rootW) +"="+ itemsW+" dir: "+direction); 
+            				   if(-shiftW+rootW == itemsW) { 
+            					   return self; 
+            				   }
+            				   if(item.position().left+rootW > itemsW) { 
+            					   //console.log("possible shift: "+(item.position().left+rootW) +"-"+ itemsW +"="+ (item.position().left+rootW - itemsW)); 
+            					   //console.log("shiftW + rootW: " +(-shiftW) +"+"+ rootW +"="+ ((-shiftW)+rootW)); 
+            					   offset = shiftW - (itemsW+shiftW-rootW); 
+            					   //console.log("offset: " + offset); 
+            				   }
+            				   //if(item.position().left+rootW < itemsW) { console.log("2"); offset += item.position().left+rootW - itemsW; }
+            			   } //else find(self.getRoot(), conf.next).removeClass("disabled");
+            		   }
+            		   if(rootW == itemsW) { return self; }
+            		   
+            		   var props = {left: offset};
+            	   }else{ var props = {left: -item.position().left}; }
+               }				
 				
 				index = i;
 				current = self;  
@@ -402,6 +438,8 @@
 			self.onBeforeSeek(function(e, i) {
 				setTimeout(function() {
 					if (!e.isDefaultPrevented()) {
+//console.log(i+"---"+self.getSize()-1);
+//console.log();
 						prev.toggleClass(conf.disabledClass, i <= 0);
 						next.toggleClass(conf.disabledClass, i >= self.getSize() -1);
 					}
@@ -507,17 +545,285 @@
 })(jQuery);
 
 
+
+/**
+ * @license 
+ * jQuery Tools @VERSION / Scrollable Collection
+ * 
+ * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
+ *
+ * http://alex-shulga.com
+ *
+ * Since: June 2013
+ * Date: @DATE 
+ */
+(function($) {	
+	var t = $.tools.scrollable; 
+	
+	t.collection = {
+		conf: {
+			close: ".close",
+			openedClass: "opened",
+			img: ".cl_img"
+		}
+	};		
+
+	
+	$.fn.collection = function(conf) {
+		
+		// configuration
+		if (typeof conf == 'string') { conf = {navi: conf}; } 
+		conf = $.extend({}, t.collection.conf, conf);
+		var api = $(this).data("scrollable");
+		
+		var getOpened = function(){
+			return api.getItemWrap().find("."+conf.openedClass);
+		}
+
+		var getClose = function(){
+			return $(conf.close);
+		}
+		
+		this.each(function() {
+			
+			function doClick(el, i, e) {
+				api.closeItem();
+				if(!el.parent().hasClass(conf.openedClass)){
+					var time = getOpened().length ?  1000 : 1;
+					setTimeout(function() {
+						api.seekToCenter(i).openItem(i, 1000);
+					}, time);
+				}
+				e.preventDefault(); 
+			}
+			
+			//bind click to slider items
+			api.getAllItems().each(function(){
+				var i = $(this).index();
+				$(this).find(conf.img).click(function(e){
+					doClick($(this), i, e);
+					e.preventDefault(); 
+				});
+			});
+
+		});
+		
+		//bind click to close buttons
+		getClose().click(function(e){
+			e.preventDefault();
+			var i = $(this).parents("."+conf.openedClass).index();
+			api.closeItem();
+			setTimeout(function() {
+				api.seekToCenter(i);
+			}, 1000);
+		});
+		
+		
+		api.move = function(offset, time) {
+			if(api.getItemWrap().find("."+conf.openedClass).length){
+				api.closeItem();
+				setTimeout(function() {
+					return api.seekTo(api.getIndex() + offset, time);
+				}, 1000);
+			}else return api.seekTo(api.getIndex() + offset, time);
+		}
+			
+
+		return conf.api ? ret : this;
+	};
+
+})(jQuery);
+
+
+/**
+ * @license 
+ * jQuery Tools @VERSION / Scrollable Accessories
+ * 
+ * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
+ *
+ * http://alex-shulga.com
+ *
+ * Since: June 2013
+ * Date: @DATE 
+ */
+(function($) {	
+	var t = $.tools.scrollable; 
+	
+	t.accessory = {
+			conf: {
+				catClass: ".accs_li",
+				acsClass: ".accessory",
+				close: ".close",
+				openedClass: "opened",
+				img: ".cl_img"
+			}
+	};		
+	
+	
+	$.fn.accessory = function(conf) {
+		this.self = this;
+		// configuration
+		if (typeof conf == 'string') { conf = {}; } 
+		conf = $.extend({}, t.accessory.conf, conf);
+		var api = $(this).data("scrollable");
+		
+		var accessories = function(){
+				var self = this;
+				this.acsQueue = [];
+				
+				this.getVisibleIndex = function(i, move){
+					var hidLen = api.getItemWrap().find(">li:lt(" + i + "):not(:visible)").length;
+					var visibleLen = api.getItemWrap().find(">li:lt(" + i + "):visible").length;
+					if(move === true){
+console.log(api.getItemWrap().find(">li:lt(" + i + "):not(:visible)"));
+console.log("li:lt(" + i + "):hidden       i: "+i+" hidLen: "+hidLen+" i-hidLen: "+(i-hidLen));					
+					}
+//					return visibleLen;
+					return i - hidLen;
+				}
+				
+				this.doClick = function(el, i, e) {
+//					console.log("click "+i+" "+e);
+					api.closeItem();
+					if(!el.parent().hasClass(conf.openedClass)){
+						var time = self.getOpened().length ?  1000 : 1;
+						setTimeout(function() {
+							api.seekToCenter(i).openItem(i, 1000);
+						}, time);
+					}
+					e.preventDefault(); 
+				}
+				
+				this.closeAccessories = function(){
+					api.getItemWrap().find(conf.acsClass+" "+conf.close).trigger("click");
+					api.getItemWrap().find(conf.img+":visible").fadeOut().parent().css({"visibility": "hidden"}).addClass("hide_item");
+//					console.log("closeAccessories");
+				}
+				
+				this.closeCategory = function(el){
+//					el.fadeOut("fast");
+					api.getItemWrap().find(".active").removeClass("active");
+					el.addClass("hide_item").css({"visible": "hidden"});
+					var elems = el.next();
+					if(elems.length > 0){
+//console.log($(elems[0]));
+						$(elems[0]).addClass("active");
+					}
+//					console.log("closeCategory");
+				}
+				
+				this.getOpened = function(){
+					return api.getItemWrap().find("."+conf.openedClass);
+				}				
+				
+				this.openItem = function(el){
+					console.log(el);
+					el.find(conf.img).css({"display": "none"});
+					el.css({"visibility": "visible"}).width(0).removeClass("hide_item").animate({
+						width: $(window).width()/100*33
+					}, 500).find(conf.img).fadeIn("slow", function() {
+//						console.log(ind+" - "+$(conf.acsClass":first:visible").index());
+					});
+					var index = self.getVisibleIndex(el.index());
+					el.find(conf.img).click(function(e){
+						self.doClick($(this), index, e);
+					});
+//					console.log("openItem");
+				}
+				
+				this.showHiddenCategories = function(){
+					api.getItemWrap().find(conf.catClass+".hide_item").removeClass("hide_item").css({"visible": "visible"});
+					console.log("showHiddenCategories");
+				}
+				
+				this.runQueue = function(){
+//					console.log("Start queue");
+//					console.dir(self.acsQueue);
+					var startSlidesAnimation = setInterval(function(){
+						if(self.acsQueue.length > 0) {
+							var line = self.acsQueue.shift();
+							(line[0])(line[1]);
+						} else clearInterval(startSlidesAnimation);
+					}, 300);
+				}
+				
+				this.moveTo = function(i){
+					var index = self.getVisibleIndex(api.getItemWrap().find(".active").index(), true);
+					console.log("real index: "+api.getItemWrap().find(".active").index()+" visible index: "+index);
+					api.seekTo(index);
+					return;
+					var accessories = api.getRoot().find(".accessory:visible");
+					var accessory = api.getRoot().find(conf.acsClass+":hidden").next();
+					console.log(accessory);
+					if(accessories.length > 0){
+						$(accessories[0]).addClass("active");
+					}
+				}
+				
+				this.openItems = function(){
+					var index = self.getVisibleIndex($(this).index());
+					console.log(index);
+
+					self.acsQueue.push({0: api.seekTo, 1: 0});
+					if(api.getItemWrap().find(conf.acsClass+":visible").length > 0){
+						self.acsQueue.push({0: self.closeAccessories, 1: null});
+//						console.log("add closeAccessories");
+					}
+					if(api.getItemWrap().find(conf.catClass+":hidden").length > 0){
+						self.acsQueue.push({0:self.showHiddenCategories, 1:null});
+//						console.log("add showHiddenCategories");
+					}
+					self.acsQueue.push({0: self.closeCategory, 1: $(this)});
+//					console.log("add closeCategory");
+					$(this).nextUntil(conf.catClass).each(function(){
+						self.acsQueue.push({0: self.openItem, 1: $(this)});
+//						console.log("add openItem");
+					});
+					self.acsQueue.push({0: self.moveTo, 1: index});
+//					console.log("add closeCategory");
+					
+					self.runQueue();
+				}
+		}
+
+		var acc = new accessories();
+		setTimeout(function(){
+			api.getItemWrap().find(conf.catClass).each(function() {
+//				console.log($(this));
+				$(this).bind("click", acc.openItems);
+			});
+		}, 10);
+		
+		//bind click to close buttons
+		/*
+		getClose().click(function(e){
+			e.preventDefault();
+			var i = $(this).parents("."+conf.openedClass).index();
+			api.closeItem();
+			setTimeout(function() {
+				api.seekToCenter(i);
+			}, 1000);
+		});
+		 * */
+				
+		return conf.api ? ret : this;
+	};
+	
+})(jQuery);
+
+
 /**
  * @license 
  * jQuery Tools @VERSION / Scrollable Activator
  * 
  * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
  *
- * http://alex-shilga.com
+ * http://alex-shulga.com
  *
  * Since: June 2013
  * Date: @DATE 
  */
+/*
 (function($) {	
 	var t = $.tools.scrollable; 
 	
@@ -583,6 +889,7 @@
 	};
 
 })(jQuery);
+ * */
 
 
 /**

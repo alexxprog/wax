@@ -17,7 +17,7 @@ body
 	line-height: 24px;
 	height: 100%;
 	min-width: 1024px;
- 	min-height: 768px;
+ 	/* min-height: 768px; */
 }
 ul
 {
@@ -165,6 +165,61 @@ textarea
 	background: url(../images/lang_en.png) no-repeat 9px 9px;
 	text-decoration: none;
 }
+/*----*/
+.flexslider {
+	position: relative; 
+	zoom: 1;
+}
+.flexslider ul,
+.flexslider ol {
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+.flexslider ul li,
+.flexslider ol li {
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+.flexslider .slides {
+	zoom:1;
+}
+.flexslider .slides > li {
+	position:relative;
+	display: none;
+	-webkit-backface-visibility: hidden;
+	text-align:center;
+}
+.flexslider .slides img {
+	max-width: 100%; 
+	display: block;
+	margin:0 auto;
+	height:auto;
+	width:auto;
+}
+
+.flexslider .descr {
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	padding:10px;
+	background:rgba(100,100,100,.5);
+	color:#fff;
+	text-align:left;
+}
+.flexslider .descr h3 {
+	text-align:left;
+}
+.flexslider .descr .text p:last-child {
+	margin-bottom:0;
+}
+.flex-container {
+	zoom: 1; 
+	position: relative;
+}
+
 /*----*/
 .header
 {
@@ -781,13 +836,24 @@ li.accs_li
 	filter: alpha(opacity=30);
   	opacity: 0.3;
 }
-.conts
-{
+.contact-cnt{
+	min-height: 37px;
+	overflow:hidden;
+}
+
+.contact-cnt .schedule,
+.contact-cnt .conts_form,
+#map_canvas{
+	display:none;
+}
+
+.conts{
 	text-align: center;
 	font-size: 13px;
 	line-height: 16px;
 	font-family: Arial, Helvetica, sans-serif;
-	margin: 33px 0 20px;
+	/*margin: 33px 0 20px;*/
+	padding: 0 0 20px;
 }
 .conts span
 {
@@ -814,6 +880,10 @@ li.accs_li
 	font-weight: bold;
 	padding: 7px 7px 5px 7px;
 }
+.map_pt.pressed
+{
+	background: none repeat scroll 0 0 #404040;
+}
 a.map_pt
 {
 	color: #000;
@@ -831,7 +901,7 @@ span.map_pt
 }
 .conts_form
 {
-	margin: 20px;
+	padding: 20px;
 }
 .conts_form table
 {
@@ -839,6 +909,7 @@ span.map_pt
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
+	box-sizing:border;
 }
 .conts_form tr
 {
@@ -877,7 +948,8 @@ input.cf_btn
 	margin-left: -8px;
 	padding: 0 8px;
 }
-.cf_err
+.cf_err,
+.error
 {
 	border: 2px solid #FF1A00 !important;
 }

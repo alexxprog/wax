@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="robots" content="INDEX, FOLLOW">
+		<title>MAP</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link href="css/main.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/flexslider.js"></script>
+		<script type="text/javascript" src="js/jquery.validate.js"></script>
+		<script type="text/javascript" src="js/contact.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script type="text/javascript">
+		    var map;
+		      function initialize() {
+		        var mapOptions = {
+		          zoom: 16, //insert personal zoom value
+		          center: new google.maps.LatLng(45.607343,-73.70573), //insert personal coordinates
+		          mapTypeId: google.maps.MapTypeId.ROADMAP
+		        };
+		        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+	
+		        var marker = new google.maps.Marker({
+		            position: new google.maps.LatLng(45.607343,-73.70573), //insert personal coordinates
+		            map: map,
+		            title:""
+		        });
+		      }
+	
+		      google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
+	</head>
+	<body>
+	<div class="header contact-header clear"><a href="#"><img class="logo" src="images/logo.png" width="560" height="91" alt=""></a>
+	  <ul class="nav">
+	    <li><a href="#">HISTOIRE</a>
+	      <ul>
+	        <li><a href="#">COORDONNÉS</a></li>
+	        <li><a href="#">HEURES D’OUVERTURE</a></li>
+	        <li><a href="#">FORMULAIRE COURRIEL</a></li>
+	      </ul>
+	    </li>
+	    <li><a href="#">COLLECTION</a>
+	      <ul>
+	        <li><a href="#">COORDONNÉS</a></li>
+	        <li><a href="#">HEURES D’OUVERTURE</a></li>
+	        <li><a href="#">FORMULAIRE COURRIEL</a></li>
+	      </ul>
+	    </li>
+	    <li><a class="nav_act" href="#">CONTACT</a>
+	      <ul>
+	        <li><a href="#" id="sm-address">COORDONNÉS</a></li>
+	        <li><a href="#" id="sm-schedule">HEURES D’OUVERTURE</a></li>
+	        <li><a href="#" id="sm-email-form">FORMULAIRE COURRIEL</a></li>
+	      </ul>
+	    </li>
+	  </ul>
+	  <span class="mute">&nbsp;</span> 
+	  </div>
+	  <div class="contact-cnt">
+		<div class="conts address"><span>4605 Avenue du Parc, Montréal Québec H2V 4E4</span> <a class="map_pt" id="contact-map-btn" href="#">MAP</a> <span>TEL 514.845.8826</span> <span>FAX 514.845.2664</span> <a href="mailto:tuxedo@waxman.ca">tuxedo@waxman.ca</a></div>
+		<div class="conts schedule"><span>LUNDI 9h à 6h</span> <span>MARDI 9h à 6h</span> <span>MERCREDI 9h à 6h</span> <span>JEUDI 9h à 20h</span> <span>VENDRDI 9h à 8h</span> <span>SAMEDI 9h à 4h</span> <span>DIMANCHE fermé</span></div>
+		<form id="contactform" class="conts_form" action="/contact.php">
+		  <table>
+		    <tr>
+		      <td colspan="2">Lorem ipsum dolor sit amat ipsum dolor sit amat.</td>
+		      <td rowspan="2" width="40%"><textarea cols="1" rows="1" name="message" placeholder="MESSAGE"></textarea></td>
+		      <td rowspan="2" width="16%"><input class="cf_btn" type="submit" id="sbm-btn" value="SEND"></td>
+		    </tr>
+		    <tr>
+		      <td><input class="cf_inp ignore" type="text" value="" name="name" placeholder="NOM"></td>
+		      <td><input class="cf_inp" type="text" value="" name="email" placeholder="COURRIEL"></td>
+		    </tr>
+		  </table>
+		</form>
+	  </div>
+		<div class="contact-content clear">
+			<div class="flexslider" id="contact-slider">
+				<ul class="slides">
+					<li style="background: url(images/other/0001_02.JPG) center center no-repeat; background-size: cover;"></li>
+					<li style="background: url(images/other/108.jpg) center center no-repeat; background-size: cover;"></li>
+					<li style="background: url(images/other/109.jpg) center center no-repeat; background-size: cover;"></li>
+					<li style="background: url(images/other/110.jpg) center center no-repeat; background-size: cover;"></li>
+				</ul>
+			</div>
+			<div id="map_canvas">
+			</div>
+		</div>
+	</body>
+</html>
