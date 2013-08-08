@@ -63,10 +63,10 @@ $(document).ready(function(){
       </ul>
     </li>
   </ul>
-  <a href="javascript:;" class="mute jp-mute" tabindex="1" title="mute">mute</a>
+  <!--<a href="javascript:;" class="mute jp-mute" tabindex="1" title="mute">mute</a>
   <a href="javascript:;" class="mute mute_off jp-unmute" tabindex="1" title="unmute" style="display: none;">unmute</a>
   <span class="mute" style="display: none;">&nbsp;</span> 
-  <span class="mute mute_off" style="display: none;">&nbsp;</span> 
+  <span class="mute mute_off" style="display: none;">&nbsp;</span>--> 
 </div>
 <div class="mov_cnt">
 		<div id="jp_container_1" class="jp-video jp-video-360p">
@@ -76,21 +76,17 @@ $(document).ready(function(){
 					<div class="jp-video-play">
 						<a href="javascript:;" class="jp-video-play-icon" tabindex="1">play</a>
 					</div>
-					<div class="jp-interface">
-						<div class="jp-progress">
-							<div class="jp-seek-bar">
-								<div class="jp-play-bar"></div>
-							</div>
-						</div>
+					<div class="jp-interface clear">
+						
 						<div class="jp-current-time" style="display: none;"></div>
 						<div class="jp-duration" style="display: none;"></div>
-						<div class="jp-controls-holder">
-							<ul class="jp-controls">
-								<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
-								<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
-								<li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
-								<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
-								<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+						<div class="jp-controls-holder pl_controls">
+							<ul class="jp-controls clear">
+								<li><a href="javascript:;" class="pl_stop jp-stop" tabindex="1">stop</a></li>
+                                <li><a href="javascript:;" class="pl_play jp-play" tabindex="1">play</a></li>
+								<li><a href="javascript:;" class="pl_pause jp-pause" tabindex="1">pause</a></li>								
+								<li><a href="javascript:;" class="mute jp-mute" tabindex="1" title="mute">mute</a></li>
+								<li><a href="javascript:;" class="mute mute_off jp-unmute" tabindex="1" title="unmute">unmute</a></li>
 								<li style="display: none;"><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
 							</ul>
 							<div class="jp-volume-bar">
@@ -103,6 +99,13 @@ $(document).ready(function(){
 								<li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
 							</ul>
 						</div>
+                        
+                        <div class="jp-progress pl_progress">
+							<div class="jp-seek-bar pl_seek">
+								<div class="jp-play-bar pl_play_bar">&nbsp;</div>
+							</div>
+						</div>
+                        
 						<div class="jp-title" style="display: none;">
 							<ul>
 								<li>Big Buck Bunny Trailer</li>

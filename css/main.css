@@ -133,7 +133,7 @@ textarea
 .spl_cnt img
 {
 	width: 50%;
-	height: 100%;
+	height: auto;
 }
 .lng_fr
 {
@@ -279,6 +279,12 @@ a.nav_act
 	top: 12px;
 	right: 18px;
 	cursor: pointer;
+	font-size: 0;
+	line-height: 0;
+}
+.mute:hover
+{
+	text-decoration: none;
 }
 .mute_off
 {
@@ -292,6 +298,58 @@ a.nav_act
 {
 	width: 100%;
 	height: 100%;
+}
+.pl_controls,
+.pl_controls li
+{
+	float: left;
+}
+.pl_play,
+.pl_pause,
+.pl_stop
+{
+	width: 44px;
+	height: 44px;
+	font-size: 0;
+	line-height: 0;
+	display: block;
+	float: left;
+}
+.pl_play
+{
+	background: url(../images/pl_play.png);
+}
+.pl_pause
+{
+	background: url(../images/pl_pause.png);
+}
+.pl_stop
+{
+	background: url(../images/pl_back.png);
+}
+.pl_progress 
+{
+	margin: 0 20px 0 100px;
+	height: 1px;
+	font-size: 0;
+	line-height: 0;
+}
+.pl_seek
+{
+	background: #909090;
+	height: 1px;
+	position: relative;
+	top: 20px;
+}
+.pl_play_bar
+{
+	background: #FFF;
+	height: 16px;
+	font-size: 0;
+	line-height: 0;
+	border-bottom: 1px solid #D5D5D5;
+	top: -8px;
+	position: relative;
 }
 /*----*/
 .hist_list
@@ -517,33 +575,38 @@ li.fl_left_act .hist_img
 }
 .cl_nav_list li
 {
-	float: none;
-	width: auto;
-	margin: 6px 0;
+	float: left;
+	width: 100%;
+	margin: 4px 0;
 }
 .cl_nav_list a:hover
 {
 	text-decoration: none;
 }
+.icon_share,
+.icon_send,
+.icon_print,
+.icon_rent
+{
+	float: left;
+	padding: 1px 0 0 25px;
+	min-height: 20px;
+}
 .icon_share
 {
 	background: url(../images/icon_share.png) no-repeat 0 1px;
-	padding: 2px 0 2px 25px;
 }
 .icon_send
 {
-	background: url(../images/icon_send.png) no-repeat 0 1px;
-	padding: 2px 0 2px 25px;
+	background: url(../images/icon_send.png) no-repeat 0 1px;	
 }
 .icon_print
 {
 	background: url(../images/icon_print.png) no-repeat 0 1px;
-	padding: 2px 0 2px 25px;
 }
 .icon_rent
 {
 	background: url(../images/icon_rent.png) no-repeat 0 1px;
-	padding: 2px 0 2px 25px;
 }
 .icon_share.clicked,
 .icon_send.clicked,
@@ -556,6 +619,36 @@ li.fl_left_act .hist_img
 }
 .cl-email-form{
 	display: none;	
+}
+.cl_send_mail
+{
+	float: left;
+	width: 150px;
+	border: 1px solid #666;
+	font-style: italic;
+	background: #000;
+	padding: 1px 3px 2px;
+	color: #FFF;
+}
+.cl-email-form label
+{
+	font-size: 10px;
+	margin-top: 2px;
+	color: #FF1A00;
+}
+.cl-email-form .valid
+{
+	border: 1px solid #00F90F;
+}
+.cl_send_btn
+{
+	cursor: pointer;
+	background: #000;
+	border: none;
+	float: left;
+	padding: 2px 8px;
+	color: #FFF;
+	text-transform: uppercase;
 }
 .cl_num
 {
@@ -948,10 +1041,14 @@ input.cf_btn
 	margin-left: -8px;
 	padding: 0 8px;
 }
-.cf_err,
-.error
+.cf_err/*,
+.error*/
 {
 	border: 2px solid #FF1A00 !important;
+}
+input.error
+{
+	border: 1px solid #FF1A00 !important;
 }
 input.cf_btn_err
 {
